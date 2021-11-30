@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>检索</title>
+</head>
+<body>
+
+    <input type="text" id="search"/>
+    <input type="button" onclick="search" value="搜索" id="button">
+
+    <table id="table"></table>
+    <script src="./word.js"></script>
+    <script>
+<!--        var wordList = [{'no': '5645', 'level': '六级', 'word': '明日', 'pinyin': 'míngrì', 'attr': '名'}, {'no': '5646', 'level': '一级', 'word': '明天', 'pinyin': 'míngtiān', 'attr': '名'}, {'no': '5647', 'level': '三级', 'word': '明显', 'pinyin': 'míngxiǎn', 'attr': '形'}]-->
+        var rows = ["no", "level", "word", "pinyin", "attr"]
+        var header = ["no", "级别", "词语", "拼音", "词性"]
+        var table = document.getElementById("table");
+        function search() {
+            table.innerText = "";
+            let keyword = document.getElementById("search").value;
+            let resultList = wordList.filter(o => o["word"].indexOf(keyword) >= 0)
+            //header
+            let headerTr = table.insertRow();
+            for(let hi=0; hi< header.length; hi++) {
+                htd = headerTr.insertCell(hi);
+                htd.innerHTML = header[hi];
+            }
+            //data
+            for(let r of resultList) {
+                let tr = table.insertRow();
+                for (let i =0 ;i < rows.length ;i++) {
+                    let td = tr.insertCell(i);
+                    td.innerHTML = r[rows[i]];
+                }
+            }
+        }
+        document.getElementById("button").onclick = search;
+    </script>
+</body>
+</html>
